@@ -55,9 +55,9 @@ else{
 }
 
 # To get all the mail items in a PST by recursing through the folder structure.
-function Get-AllMAPIFolders( [Object]$RootFolder ) 
+function Get-AllMAPIFolders( [Object]$RootFolder )
 {
-  $folderList = New-Object 'System.Collections.Generic.List[Object]'  
+  $folderList = New-Object 'System.Collections.Generic.List[Object]'
   $folderList.Add($RootFolder)
   foreach( $subFolder in $RootFolder.Folders ) {
      if (-Not ($subFolder.FolderPath -Match "Calendar Logging")){
@@ -87,20 +87,30 @@ function Extract-Fields([Object] $allFolders)
               {
                   if ( $outputFile)
                   {
-                      Add-Content -Path $outputFile -Value "Folder: $folder.FolderPath"
-                      Add-Content -Path $outputFile -Value "Sender: $item.SenderName"
-                      Add-Content -Path $outputFile -Value "Subject: $item.Subject"
-                      Add-Content -Path $outputFile -Value "Sent To: $item.To"
-                      Add-Content -Path $outputFile -Value "CC: $item.CC"
-                      Add-Content -Path $outputFile -Value "BCC: $item.BCC"
-                      Add-Content -Path $outputFile -Value "Received By: $item.ReceivedByName"
-                      Add-Content -Path $outputFile -Value "Send Date: $item.SentOn"
+                      $fPath = "Folder: " + $folder.FolderPath
+                      Add-Content -Path $outputFile -Value $fPath
+                      $sender = "Sender: " + $item.SenderName
+                      Add-Content -Path $outputFile -Value $sender
+                      $subject = "Subject: " + $item.Subject
+                      Add-Content -Path $outputFile -Value $subject
+                      $sentTo = "Sent To: " + $item.To
+                      Add-Content -Path $outputFile -Value $sentTo
+                      $cc = "CC: " + $item.CC
+                      Add-Content -Path $outputFile -Value $cc
+                      $bcc = "BCC: " + $item.BCC
+                      Add-Content -Path $outputFile -Value $bcc
+                      $recuPar = "Received By: " + $item.ReceivedByName
+                      Add-Content -Path $outputFile -Value $recuPar
+                      $sendDate = "Send Date: " + $item.SentOn
+                      Add-Content -Path $outputFile -Value $sendDate
                       if ($item.Attachments.Count -gt 0) {
                           Add-Content -Path $outputFile -Value "Attachments:"
                           foreach($attachment in $item.Attachments)
                           {
-                              Add-Content -Path $outputFile -Value "    DisplayName: $attachment.DisplayName"
-                              Add-Content -Path $outputFile -Value "    FileName: $attachment.FileName"
+                              $attDispName = "    DisplayName: " + $attachment.DisplayName
+                              Add-Content -Path $outputFile -Value $attDispName
+                              $attFileName = "    FileName: " + $attachment.FileName
+                              Add-Content -Path $outputFile -Value $attFileName
                           }
                       }
                       Add-Content -Path $outputFile -Value "----------------"
