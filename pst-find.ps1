@@ -1,5 +1,5 @@
 ﻿# Based on https://social.technet.microsoft.com/Forums/windowsserver/en-US/010e3f4f-755b-4cb4-b574-69e5db6e3278/powershell-outlook-2010-converting-pst-to-xml
-# Version 1.0
+# Version 1.1
 # Date 05.04.2019
 # Function to extract specific attributes from mails based on keywords. Requires Outlook.
 
